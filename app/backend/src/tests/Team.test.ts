@@ -38,7 +38,6 @@ describe('Teams Test', function() {
 
   });
 
-
   it('should return not found if the team doesn\'t exists', async function() {
     sinon.stub(SequelizeTeam, 'findOne').resolves(null);
 

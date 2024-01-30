@@ -1,23 +1,22 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import { Team } from '../../Interfaces/teamsType'
+import { User } from '../../Interfaces/UserType'
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<Team>>('teams', {
+    return queryInterface.createTable<Model<User>>('users', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      teamName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: 'team_name'
-      }
+      username: DataTypes.STRING,
+      role: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
     });
   },
   down(queryInterface: QueryInterface) {
-    return queryInterface.dropTable('teams');
+    return queryInterface.dropTable('users');
   },
 };

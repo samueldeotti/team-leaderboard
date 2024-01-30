@@ -1,25 +1,36 @@
-import { DataTypes, Model, ModelDefined, Optional } from 'sequelize';
-import db from './index';
-import { Team } from '../../types/Team';
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from 'sequelize';
+import db from '.';
 
-type TeamInputtableTypes = Optional<Team, 'id'>;
-type TeamSequelizeModelCreator = ModelDefined<Team, TeamInputtableTypes>;
-export type OrderSequelizeModel = Model<Team, TeamInputtableTypes>;
+class SequelizeTeam extends
+  Model<InferAttributes<SequelizeTeam>,
+  InferCreationAttributes<SequelizeTeam>> {
+  declare id: CreationOptional<number>;
 
-const TeamsModel: TeamSequelizeModelCreator = db.define('Team', {
+  declare teamName: string;
+}
+
+SequelizeTeam.init({
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     primaryKey: true,
+    allowNull: false,
     autoIncrement: true,
   },
   teamName: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
     allowNull: false,
   },
 }, {
-  tableName: 'teams',
-  timestamps: false,
   underscored: true,
+  sequelize: db,
+  modelName: 'teams',
+  timestamps: false,
 });
 
-export default TeamsModel;
+export default SequelizeTeam;

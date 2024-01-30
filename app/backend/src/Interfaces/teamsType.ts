@@ -1,4 +1,4 @@
-export type Team = {
+export interface Team {
   id: number;
   teamName: string;
-};
+}

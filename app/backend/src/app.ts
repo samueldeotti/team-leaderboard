@@ -1,6 +1,6 @@
 import * as express from 'express';
 import 'express-async-errors';
-// import router from './routes';
+import router from './routes';
 
 import errorMiddleware from './middlewares/errorMiddleware';
 
@@ -9,24 +9,22 @@ class App {
 
   constructor() {
     this.app = express();
-    this.app.use(express.json());
-
-    // Adicione suas rotas aqui
+    // this.app.use(express.json());
 
     this.config();
 
-    // this.routes();
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.routes();
 
     // Não remova esse middleware de erro, mas fique a vontade para customizá-lo
     // Mantenha ele sempre como o último middleware a ser chamado
     this.app.use(errorMiddleware);
   }
 
-  // private routes(): void {
-  //   this.app.use(router);
-  // }
+  private routes(): void {
+    this.app.use(router);
+  }
 
   private config():void {
     const accessControl: express.RequestHandler = (_req, res, next) => {

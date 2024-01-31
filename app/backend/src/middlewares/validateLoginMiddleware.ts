@@ -17,17 +17,18 @@ export default class Validations {
   }
 
   static validateToken(req: Request, res: Response, next: NextFunction): Response | void {
-    const token = req.headers.authorization;
-    if (!token) return res.status(401).json({ message: 'Token not found' });
+    const { authorization } = req.headers;
 
-    const [type, baererToken] = token.split(' ');
-
-    if (type !== 'Bearer') return res.status(401).json({ message: 'Token malformatted' });
-
-    const decode = jwt.verify(baererToken, process.env.JWT_SECRET as string ?? 'jwt_secret');
-
-    if (!decode) return res.status(401).json({ message: 'Token must be a valid token' });
-
+    if (!authorization) return res.status(401).json({ message: 'Token not found' });
+    const token = authorization.split(' ')[1];
+    try {
+      const secret = process.env.JWT_SECRET ?? 'jwt_secret';
+      const payload = jwt.verify(token, secret);
+      console.log(payload, 'payload');
+      res.locals.auth = payload;
+    } catch (err) {
+      return res.status(401).json({ message: 'Token must be a valid token' });
+    }
     next();
   }
 }

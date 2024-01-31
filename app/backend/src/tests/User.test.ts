@@ -2,11 +2,11 @@ import * as sinon from 'sinon';
 import * as chai from 'chai';
 import UserService from '../services/UserService';
 
+
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
 import {App} from '../app';
-import SequelizeUser from '../../src/database/models/ExampleModel';
 
 chai.use(chaiHttp);
 
@@ -15,6 +15,11 @@ const { app } = new App();
 const { expect } = chai;
 
 describe('Users Test', function() {
+
+  beforeEach(function() {
+    sinon.restore()
+  })
+
   it('should not login without email', async function() {
 
     const userService = new UserService() 
@@ -25,6 +30,11 @@ describe('Users Test', function() {
 
     expect(serviceResponse.status).to.equal(400);
     expect(serviceResponse.data).to.deep.equal({ message: "All fields must be filled" });
+
+    const {status, body} = await chai.request(app).post('/login').send({password: '1234567'});
+    expect(status).to.equal(400);
+    expect(body).to.deep.equal({ message: 'All fields must be filled' })
+
   });
 
   it('should not login without password', async function() {
@@ -37,9 +47,15 @@ describe('Users Test', function() {
 
     expect(serviceResponse.status).to.equal(400);
     expect(serviceResponse.data).to.deep.equal({ message: "All fields must be filled" });
+
+
+    const {status, body} = await chai.request(app).post('/login').send({email: 'abcd@gmail.com'})
+    expect(status).to.equal(400);
+    expect(body).to.deep.equal({ message: 'All fields must be filled' })
+
   });
 
-  it('should login and retunr a valid token', async function() {
+  it('should login and return a valid token', async function() {
     const userService = new UserService() 
     const email = 'abcd@gmail.com' 
     const password = '1234567'
@@ -49,8 +65,7 @@ describe('Users Test', function() {
 
     expect(serviceResponse.status).to.equal(200);
     expect(serviceResponse.data).to.deep.equal({ token });  
-  
+
   })
-
-
+    
 });

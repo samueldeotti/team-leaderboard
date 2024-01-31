@@ -26,19 +26,10 @@ export default class UserService {
       return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string ?? 'jwt_secret');
+    const token = jwt.sign({
+      id: user.id, role: user.role,
+    }, process.env.JWT_SECRET as string ?? 'jwt_secret');
 
     return { status: 'SUCCESSFUL', data: { token } };
   }
-
-  // public async getRole(authorization: string): Promise<ServiceResponse<IRole>> {
-  //   const token = authorization.split(' ');
-  //   const { payload } = this.jwt.verify(token[1]) as JwtPayload;
-
-  //   if (!payload) {
-  //     return { status: 'UNAUTHORIZED', data: { message: 'Token must be a valid token' },
-  //     };
-  //   }
-  //   return { status: 'SUCCESSFUL', data: { role: payload } };
-  // }
 }

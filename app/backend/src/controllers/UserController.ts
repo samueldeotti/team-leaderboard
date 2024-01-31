@@ -11,6 +11,8 @@ export default class UserController {
     const { email, password } = req.body;
     const { status, data } = await this.userService.login(email, password);
 
+    // res.locals.auth = data;
+
     res.status(mapStatusHTTP(status)).json(data);
   }
 }

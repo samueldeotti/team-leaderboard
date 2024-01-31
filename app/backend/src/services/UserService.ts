@@ -1,13 +1,13 @@
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { User } from '../Interfaces/UserType';
+// import { User } from '../Interfaces/UserType';
 import UserModel from '../models/UserModel';
 import { IUserModel } from '../Interfaces/UsersModel';
 import { ServiceResponse } from '../types/ServiceResponse';
 
 type LoginResponse = {
   token: string,
-  user: User,
+  // user: User,
 };
 
 export default class UserService {
@@ -28,7 +28,7 @@ export default class UserService {
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string ?? 'jwt_secret');
 
-    return { status: 'SUCCESSFUL', data: { token, user } };
+    return { status: 'SUCCESSFUL', data: { token } };
   }
 
   // public async getRole(authorization: string): Promise<ServiceResponse<IRole>> {

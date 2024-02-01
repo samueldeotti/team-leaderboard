@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import mapStatusHTTP from '../utils/mapStatusHTTP';
 import MatchService from '../services/MatchService';
 // import mapStatusHTTP from '../utils/mapStatusHTTP';
 
@@ -38,9 +39,9 @@ export default class MatchController {
   }
 
   public async createMatch(req: Request, res: Response) {
-    const serviceResponse = await this.matchService
+    const { status, data } = await this.matchService
       .createMatch(req.body);
 
-    return res.status(201).json(serviceResponse.data);
+    return res.status(mapStatusHTTP(status)).json(data);
   }
 }

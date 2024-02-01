@@ -40,4 +40,15 @@ export default class MatchModel implements IMatchModel {
       throw new Error('Not possible to finish the match.');
     }
   }
+
+  async updateMatch(homeGoals: number, awayGoals: number): Promise<void> {
+    try {
+      await this.model.update(
+        { homeTeamGoals: homeGoals, awayTeamGoals: awayGoals },
+        { where: { inProgress: true } },
+      );
+    } catch (error) {
+      throw new Error('Not possible to update the match.');
+    }
+  }
 }

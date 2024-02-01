@@ -1,11 +1,4 @@
 import {
-  allGames,
-  totalWins,
-  totalTies,
-  totalLosts,
-  totalPoints,
-  goalsMade,
-  goalsTaken,
   getAllInfo,
 } from '../utils/leaderboardUtils';
 

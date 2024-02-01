@@ -32,4 +32,12 @@ export default class MatchModel implements IMatchModel {
 
     return teams;
   }
+
+  async finishMatch(id: number): Promise<void> {
+    try {
+      await this.model.update({ inProgress: false }, { where: { id } });
+    } catch (error) {
+      throw new Error('Not possible to finish the match.');
+    }
+  }
 }

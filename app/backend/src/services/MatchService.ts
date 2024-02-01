@@ -2,6 +2,10 @@ import { ServiceResponse } from '../types/ServiceResponse';
 import { Matches } from '../Interfaces/MatchesType';
 import MatchModel from '../models/MatchModel';
 
+type FinishMessage = {
+  message: 'Finished';
+};
+
 export default class MatchService {
   constructor(
     private matchModel = new MatchModel(),
@@ -18,5 +22,10 @@ export default class MatchService {
     const matchsFiltred = await this.matchModel.findFilteredMatches(query);
 
     return { status: 'SUCCESSFUL', data: matchsFiltred };
+  }
+
+  async finishMatch(id: number): Promise<ServiceResponse<FinishMessage>> {
+    this.matchModel.finishMatch(id);
+    return { status: 'SUCCESSFUL', data: { message: 'Finished' } };
   }
 }

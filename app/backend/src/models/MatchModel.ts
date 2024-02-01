@@ -17,4 +17,19 @@ export default class MatchModel implements IMatchModel {
 
     return teams;
   }
+
+  async findFilteredMatches(query: string): Promise<Matches[]> {
+    const progress = JSON.parse(query);
+
+    const teams = await this.model.findAll({
+      where: { inProgress: progress },
+      include: [
+        { model: SequelizeTeam, as: 'homeTeam', attributes: ['teamName'] },
+        { model: SequelizeTeam, as: 'awayTeam', attributes: ['teamName'] },
+      ],
+      attributes: { exclude: ['home_team_id', 'away_team_id'] },
+    });
+
+    return teams;
+  }
 }

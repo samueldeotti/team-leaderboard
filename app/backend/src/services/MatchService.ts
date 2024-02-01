@@ -1,10 +1,9 @@
 import { ServiceResponse } from '../types/ServiceResponse';
-import { Matches } from '../Interfaces/MatchesType';
+import { MatchParams, Matches } from '../Interfaces/MatchesType';
 import MatchModel from '../models/MatchModel';
 
 type FinishMessage = { message: 'Finished'; };
-
-export type UpdateMessage = { message: 'Updated'; };
+type UpdateMessage = { message: 'Updated'; };
 
 export default class MatchService {
   constructor(
@@ -36,5 +35,11 @@ export default class MatchService {
   ): Promise<ServiceResponse<UpdateMessage>> {
     await this.matchModel.updateMatch(homeGoals, awayGoals, id);
     return { status: 'SUCCESSFUL', data: { message: 'Updated' } };
+  }
+
+  async createMatch(matchParams: MatchParams): Promise<ServiceResponse<Matches>> {
+    const match = await this.matchModel.createMatch(matchParams);
+
+    return { status: 'SUCCESSFUL', data: match };
   }
 }

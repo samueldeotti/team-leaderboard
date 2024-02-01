@@ -6,3 +6,10 @@ export interface Matches {
   awayTeamGoals: number,
   inProgress: boolean,
 }
+
+export type MatchParams = {
+  homeTeamId: number,
+  awayTeamId: number,
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+};

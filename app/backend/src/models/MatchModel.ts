@@ -1,4 +1,4 @@
-import { Matches } from '../Interfaces/MatchesType';
+import { MatchParams, Matches } from '../Interfaces/MatchesType';
 import { IMatchModel } from '../Interfaces/MatchModel';
 import SequelizeMatch from '../database/models/MatchesModel';
 import SequelizeTeam from '../database/models/TeamsModel';
@@ -49,6 +49,15 @@ export default class MatchModel implements IMatchModel {
       );
     } catch (error) {
       throw new Error('Not possible to update the match.');
+    }
+  }
+
+  async createMatch(matchParams: MatchParams): Promise<Matches> {
+    try {
+      const match = await this.model.create({ ...matchParams, inProgress: true });
+      return match;
+    } catch (error) {
+      throw new Error('Not possible to create the match.');
     }
   }
 }

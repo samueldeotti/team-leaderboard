@@ -1,4 +1,4 @@
-import { Matches } from './MatchesType';
+import { MatchParams, Matches } from './MatchesType';
 
 export type UpdateMessage = {
   homeTeamGoals: number;
@@ -10,4 +10,5 @@ export interface IMatchModel {
   findFilteredMatches(query: string): Promise<Matches[]>
   finishMatch(id: number): Promise<void>
   updateMatch(homeGoals: number, awayGoals: number, id: number): Promise<void>
+  createMatch(matchParams: MatchParams): Promise<Matches>
 }

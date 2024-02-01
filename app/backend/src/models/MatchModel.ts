@@ -41,11 +41,11 @@ export default class MatchModel implements IMatchModel {
     }
   }
 
-  async updateMatch(homeGoals: number, awayGoals: number): Promise<void> {
+  async updateMatch(homeGoals: number, awayGoals: number, id: number): Promise<void> {
     try {
       await this.model.update(
         { homeTeamGoals: homeGoals, awayTeamGoals: awayGoals },
-        { where: { inProgress: true } },
+        { where: { id } },
       );
     } catch (error) {
       throw new Error('Not possible to update the match.');

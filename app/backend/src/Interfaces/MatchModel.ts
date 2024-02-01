@@ -9,5 +9,5 @@ export interface IMatchModel {
   findAll(): Promise<Matches[]>
   findFilteredMatches(query: string): Promise<Matches[]>
   finishMatch(id: number): Promise<void>
-  updateMatch(homeGoals: number, awayGoals: number): Promise<void>
+  updateMatch(homeGoals: number, awayGoals: number, id: number): Promise<void>
 }

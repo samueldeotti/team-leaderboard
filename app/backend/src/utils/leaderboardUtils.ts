@@ -2,8 +2,7 @@ import { Matches } from '../Interfaces/MatchesType';
 
 const totalPoints = (wins: number, drawns: number) => (wins * 3) + (drawns * 1);
 
-const allGames = (matches:Matches[], id: number) => matches
-  .filter((match) => match.homeTeamId === id || match.awayTeamId === id).length;
+const allGames = (matches:Matches[]) => matches.length;
 
 const totalWins = (totalGames: Matches[], id: number) => totalGames.filter((match) => {
   if (match.homeTeamId === id) {
@@ -26,16 +25,20 @@ const goalsTaken = (matches: Matches[], id: number) =>
     ? acc + match.awayTeamGoals : acc + match.homeTeamGoals), 0);
 
 const getAllInfo = (matches: Matches[], id: number) => {
-  const totalGames = allGames(matches, id);
+  const totalGames = allGames(matches);
+  const wins = totalWins(matches, id);
+  const ties = totalTies(matches);
 
   return {
-    totalPoints: totalPoints(totalWins(matches, id), totalTies(matches)),
+    totalPoints: totalPoints(wins, ties),
     totalGames,
-    totalVictories: totalWins(matches, id),
-    totalDraws: totalTies(matches),
-    totalLosses: totalLosts(totalGames, totalWins(matches, id), totalTies(matches)),
+    totalVictories: wins,
+    totalDraws: ties,
+    totalLosses: totalLosts(totalGames, wins, ties),
     goalsFavor: goalsMade(matches, id),
     goalsOwn: goalsTaken(matches, id),
+    goalsBalance: goalsMade(matches, id) - goalsTaken(matches, id),
+    efficiency: ((totalPoints(wins, ties) / (totalGames * 3)) * 100).toFixed(2),
   };
 };
 

@@ -7,8 +7,9 @@ export default class LeaderboardController {
     private leaderboardService = new LeaderboardService(),
   ) { }
 
-  public async getLeaderboard(_req: Request, res: Response) {
-    const serviceResponse = await this.leaderboardService.getLeaderboard();
+  public async getLeaderboard(req: Request, res: Response) {
+    const { subroute } = req.params;
+    const serviceResponse = await this.leaderboardService.getLeaderboard(subroute?.toLowerCase());
     return res.status(200).json(serviceResponse.data);
   }
 }

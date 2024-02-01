@@ -6,7 +6,7 @@ const leaderBoardController = new LeaderBoardController();
 const router = Router();
 
 router.get(
-  '/home',
+  '/:subroute?',
   (req: Request, res: Response) => leaderBoardController.getLeaderboard(req, res),
 );
 

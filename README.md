@@ -18,7 +18,7 @@ E por fim, para os testes de integração foi utilizado ***Mocha*** e ***Chai***
 
 ## O que foi desenvolvido
 
-  - Banco de dados MySQL utilizando o Sequelize. Este banco possui tabelas que armazenam informações dos usuários, informações dos times e informaçẽs das partidas; 
+  - Banco de dados MySQL utilizando o Sequelize. Este banco possui tabelas que armazenam informações dos usuários, informações dos times e informações das partidas; 
   - Endpoints que lêem e escrevem em um banco de dados MySQL;
   - Middlewares que realizam verificações dos dados enviados nas requisições e se o usuário está autenticado e possui permissão para realizar determinadas ações;
   - Divisão da aplicação em camadas (arquitetura MSC), o que permite uma maior organização do código e maior facilidade de manutenção;

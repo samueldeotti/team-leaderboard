@@ -1,5 +1,5 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import { User } from '../../Interfaces/UserType'
+import { User } from '../../Interfaces/User/UserType'
 
 export default {
   up(queryInterface: QueryInterface) {

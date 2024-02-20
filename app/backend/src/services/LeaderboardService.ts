@@ -1,9 +1,9 @@
-import { Matches } from '../Interfaces/MatchesType';
-import { Team } from '../Interfaces/teamsType';
+import { Matches } from '../Interfaces/Match/MatchesType';
+import { Team } from '../Interfaces/Team/teamsType';
 import { getAllInfo } from '../utils/leaderboardUtils';
 import TeamModel from '../models/TeamModel';
 import MatchesModel from '../models/MatchModel';
-import { ILeaderBoard } from '../Interfaces/LeaderBoardType';
+import { ILeaderBoard } from '../Interfaces/LeaderBoard/LeaderBoardType';
 import { ServiceResponse } from '../types/ServiceResponse';
 
 export default class LeaderboardService {
@@ -22,16 +22,12 @@ export default class LeaderboardService {
 
   static getInfo(matches: Matches[], teams: Team[], path: string): ILeaderBoard[] {
     const [...allTeams] = teams.map((team) => {
-      let pathTeam: Matches[] | null = null;
-      if (path === 'home') {
-        pathTeam = matches.filter((match) => match.homeTeamId === team.id);
-      }
-      if (path === 'away') {
-        pathTeam = matches.filter((match) => match.awayTeamId === team.id);
-      }
+      let pathMatches = matches;
+      if (path === 'home') pathMatches = matches.filter((match) => match.homeTeamId === team.id);
+      if (path === 'away') pathMatches = matches.filter((match) => match.awayTeamId === team.id);
       return {
         name: team.teamName,
-        ...getAllInfo(pathTeam || matches, team.id),
+        ...getAllInfo(pathMatches, team.id),
       };
     });
 
@@ -43,8 +39,6 @@ export default class LeaderboardService {
   public async getLeaderboard(path: string): Promise<ServiceResponse<ILeaderBoard[]>> {
     const teams = await this.teamModel.findAll();
     const matchesFilter = await this.matchesModel.findFilteredMatches('false');
-
-    console.log(path, 'path');
 
     const allTeams = LeaderboardService.getInfo(matchesFilter, teams, path);
 

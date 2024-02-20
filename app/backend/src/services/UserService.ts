@@ -2,7 +2,7 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 // import { User } from '../Interfaces/UserType';
 import UserModel from '../models/UserModel';
-import { IUserModel } from '../Interfaces/UsersModel';
+import { IUserModel } from '../Interfaces/User/UsersModel';
 import { ServiceResponse } from '../types/ServiceResponse';
 
 type LoginResponse = {

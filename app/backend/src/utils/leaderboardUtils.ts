@@ -1,13 +1,11 @@
-import { Matches } from '../Interfaces/MatchesType';
+import { Matches } from '../Interfaces/Match/MatchesType';
 
 const totalPoints = (wins: number, drawns: number) => (wins * 3) + (drawns * 1);
 
 const allGames = (matches:Matches[]) => matches.length;
 
 const totalWins = (totalGames: Matches[], id: number) => totalGames.filter((match) => {
-  if (match.homeTeamId === id) {
-    return match.homeTeamGoals > match.awayTeamGoals;
-  }
+  if (match.homeTeamId === id) return match.homeTeamGoals > match.awayTeamGoals;
   return match.awayTeamGoals > match.homeTeamGoals;
 }).length;
 

@@ -1,5 +1,5 @@
-import { MatchParams, Matches } from '../Interfaces/MatchesType';
-import { IMatchModel } from '../Interfaces/MatchModel';
+import { MatchParams, Matches } from '../Interfaces/Match/MatchesType';
+import { IMatchModel } from '../Interfaces/Match/MatchModel';
 import SequelizeMatch from '../database/models/MatchesModel';
 import SequelizeTeam from '../database/models/TeamsModel';
 

@@ -1,5 +1,5 @@
 import { ServiceResponse } from '../types/ServiceResponse';
-import { MatchParams, Matches } from '../Interfaces/MatchesType';
+import { MatchParams, Matches } from '../Interfaces/Match/MatchesType';
 import MatchModel from '../models/MatchModel';
 import TeamService from './TeamService';
 

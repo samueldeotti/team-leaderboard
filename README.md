@@ -39,7 +39,7 @@ Na sua máquina você deve ter:
 
 1. Navegue até o local onde deseja clonar o repositório e utilize o **git clone**:
 ```
-git clone git@github.com:Tayna-Silva-Macedo/project-trybe-futebol-clube.git
+git clone git@github.com:samueldeotti/team-leaderboard.git
 ```
 
 2. Acesse o diretório do projeto **project-trybe-futebol-clube** e instale as dependências necessárias:
